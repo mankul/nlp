@@ -25,7 +25,7 @@ def lexical_analyzer(string1):
 	for character in string1:
 		if character==" ":
 			for character in word:
-				
+				print character	
 			word=""
 		else:
 			word+=character	
