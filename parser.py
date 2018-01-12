@@ -17,7 +17,7 @@ def reading_directory_files(speech_database_directory):
 
 def main():
 	#
-	#implementing harmonic mean model HMM
+	#implementing hidden markov model HMM
 	#
 	#
 	speech_database_directory="./speech_tags"
@@ -25,8 +25,9 @@ def main():
 	print "parsing the content of sentence: kindly type the sentence"
 	coordinating_conjunctions=['and','but','or','nor','so','then','yet']
 			
-        list_of_tag_objects=reading_directory_files(speech_database_directory)
-        
+        dict_of_tag_objects=reading_directory_files(speech_database_directory)
+        print dict_of_tag_objects
+                
         
         #	noun=Noun(speech_database_directory)
 	#
@@ -38,6 +39,7 @@ def main():
 	word=''
 	previous_label=''
 	sentence_list={}
+        '''
 	for character in sentence:
 		if character in break_points:
 			if word in coordinating_conjunctions:
@@ -53,6 +55,28 @@ def main():
 		else:
 			word+=character
 
+        '''
+        word=""
+        counter=0
+        for character in sentence:
 
+            if character == (" " ) or counter == len(sentence)-1:
+                if counter == len(sentence)-1:
+                    word+=character
+                label=[]
+                for tag_obj in dict_of_tag_objects.values():
+                    if word in tag_obj.list_of_tags:
+                        label.append(tag_obj.tag_name)
+                if label != []:
+                    print word , label, "\n"
+                else:
+                    print word, "not in database,, kindly rerun "
+                word=""
+                counter+=1
+            else:
+                word+=character
+                counter+=1
+
+            
 
 if __name__ == "__main__": main()
